@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import {connect} from 'react-redux'
 import './App.css';
+import ShoppingList from './ShoppingList.js'
 
 class App extends Component {
   render() {
@@ -9,10 +10,19 @@ class App extends Component {
         <div className="App-header">
           <h2>Welcome to React Shopping List</h2>
         </div>
-        <ShoppingList items={this.props.shoppingListItems} />
+        <ul className="list-group col-lg-6 col-lg-offset-3">
+          <ShoppingList items={this.props.shoppingListItems} />
+        </ul>
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps(state){
+  return {shoppingListItems: state.shoppingListItems}
+}
+
+const connector = connect(mapStateToProps)
+const connectedComponent = connector(App)
+
+export default connectedComponent
